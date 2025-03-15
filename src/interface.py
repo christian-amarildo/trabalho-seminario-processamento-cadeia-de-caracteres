@@ -1,7 +1,19 @@
 # interface.py
 import time
-from algoritmo_bmh import search_bmh
+from algoritmo_search_shift_and import search_shift_and
 from gerar_texto import generate_text
+
+
+def format_output(text, elapsed):
+    print(f"\nTempo de busca: {elapsed:.6f} segundos")
+    print("=" * 50 + "\n")
+
+    # Define um número fixo de caracteres por linha (ex: 80)
+    line_width = 80  
+    for i in range(0, len(text), line_width):
+        print(text[i:i+line_width])
+
+    print("\n" + "=" * 50)
 
 def select_text_size():
     print("\nOpções de tamanho de texto:")
@@ -23,7 +35,7 @@ def select_pattern():
 
 def main():
     print("="*50)
-    print("Buscador BMH - Boyer-Moore-Horspool")
+    print("Buscador SHIFT-AND")
     print("="*50)
     
     size = select_text_size()
@@ -36,7 +48,7 @@ def main():
     # Executar busca
     print(f"Buscando padrão '{pattern}'...")
     start_time = time.time()
-    occurrences = search_bmh(text, pattern)
+    occurrences = search_shift_and(text, pattern)
     elapsed = time.time() - start_time
     
     # Resultados
@@ -47,8 +59,12 @@ def main():
     else:
         print("Padrão não encontrado.")
     
-    print(f"\nTempo de busca: {elapsed:.6f} segundos")
-    print("="*50)
+    # Usa a função format_output para exibir o texto formatado
+    format_output(text, elapsed)
+    
+    # print(f"\nTempo de busca: {elapsed:.6f} segundos")
+    # print("="*50)
 
+    # print(text)
 if __name__ == "__main__":
     main()
